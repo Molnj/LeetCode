@@ -1,5 +1,5 @@
 /*******************************************************************************
-* https://leetcode.com/problems/merge-sorted-array/ 
+* 88 - https://leetcode.com/problems/merge-sorted-array/ 
 *
 * 
 * You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
@@ -34,10 +34,17 @@
 *   * nums2.length == n
 *   * 0 <= m, n <= 200
 *   * 1 <= m + n <= 200
-*   * -109 <= nums1[i], nums2[j] <= 109
+*   * -10^9 <= nums1[i], nums2[j] <= 10^9
 *******************************************************************************/
 
+#include <stdio.h>
+
+
 void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n) {
+    // unused paramteres
+    (void)nums1Size;
+    (void)nums2Size;
+
     // Start from the end of the merged arrays
     int idx1 = m-1;
     int idx2 = n-1;
@@ -50,4 +57,25 @@ void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n) {
             nums1[i] = nums2[idx2--];
         }
     }
+}
+
+
+int main(void) {
+    // inputs
+    int nums1[] = {1,2,3,0,0,0};
+    int m = 3;
+    int nums2[] = {2,5,6};
+    int n = 3;
+
+    // test
+    merge(nums1, sizeof(nums1)/sizeof(int), m, nums2, sizeof(nums2)/sizeof(int), n);
+
+    printf("Expected output: 0 1 2 3 4 5\n");
+    printf("Received output: ");
+    for (int i = 0; i < (int)(sizeof(nums1)/sizeof(int)); i++) {
+        printf("%d ",i);
+    }
+    printf("\n");
+
+    return 0;
 }

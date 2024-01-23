@@ -1,5 +1,5 @@
 /*******************************************************************************
-* https://leetcode.com/problems/remove-element/
+* 27 - https://leetcode.com/problems/remove-element/
 * 
 * 
 * Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The order of the elements may be changed. Then return the number of elements in nums which are not equal to val.
@@ -46,17 +46,37 @@
 *   * 0 <= val <= 100
 *******************************************************************************/
 
-void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n) {
-    // Start from the end of the merged arrays
-    int idx1 = m-1;
-    int idx2 = n-1;
+#include <stdio.h>
 
-    // Merge nums1 and nums2
-    for (int i = m+n-1; i >= 0; i--) {
-        if (idx1 >= 0 && (idx2 < 0 || nums1[idx1] > nums2[idx2])) {
-            nums1[i] = nums1[idx1--];
-        } else {
-            nums1[i] = nums2[idx2--];
+
+int removeElement(int* nums, int numsSize, int val) {
+    int k=numsSize;
+    int readIdx, writeIdx;
+    for (readIdx=0, writeIdx=numsSize-1; readIdx <= writeIdx; readIdx++) {
+        if (nums[readIdx] == val) {
+            nums[readIdx--] = nums[writeIdx];
+            nums[writeIdx--] = val;
+            k--;
         }
     }
+    return k;
+}
+
+
+int main(void) { 
+    // inputs
+    int nums[] = {3,2,2,3};
+    int val = 3;    
+
+    // test
+    int result= removeElement(nums, (int)(sizeof(nums)/sizeof(int)), val);
+
+    printf("Expected output: k = 2 | nums = 2 2 _ _ (value of _ is not important)\n");
+    printf("Received output: k = %d | nums = ", result);
+    for (int i = 0; i < (int)(sizeof(nums)/sizeof(int)); i++) {
+        printf("%d ",nums[i]);
+    }
+    printf("\n");
+
+    return 0;
 }
